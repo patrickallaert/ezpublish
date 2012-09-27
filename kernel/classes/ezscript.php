@@ -317,8 +317,7 @@ class eZScript
     function shutdown( $exitCode = false, $exitText = false )
     {
         $cli = eZCLI::instance();
-        if ( class_exists( 'eZDB' )
-             and eZDB::hasInstance() )
+        if ( eZDB::hasInstance() )
         {
             $db = eZDB::instance( false, array( 'show_errors' => false ) );
             // Perform transaction check
@@ -1122,8 +1121,7 @@ class eZScript
 
 function eZDBCleanup()
 {
-    if ( class_exists( 'ezdb' )
-         and eZDB::hasInstance() )
+    if ( eZDB::hasInstance() )
     {
         $db = eZDB::instance();
         $db->setIsSQLOutputEnabled( false );

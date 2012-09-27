@@ -61,15 +61,7 @@ class eZCodeMapper
             $str .= ':';
         }
         $str .= $text;
-        if ( class_exists( 'ezcli' ) )
-        {
-            $cli = eZCLI::instance();
-            $cli->error( $str );
-        }
-        else
-        {
-            eZDebug::writeError( $str, __METHOD__ );
-        }
+        eZCLI::instance()->error( $str );
     }
 
     /*!
@@ -85,15 +77,7 @@ class eZCodeMapper
             $str .= ':';
         }
         $str .= $text;
-        if ( class_exists( 'ezcli' ) )
-        {
-            $cli = eZCLI::instance();
-            $cli->warning( $str );
-        }
-        else
-        {
-            eZDebug::writeWarning( $str, __METHOD__ );
-        }
+        eZCLI::instance()->warning( $str );
     }
 
     /*!
