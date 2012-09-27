@@ -681,12 +681,9 @@ class eZDebug
         $time = microtime( true );
         $debug = eZDebug::instance();
 
-        $usedMemory = 0;
-        if ( function_exists( "memory_get_usage" ) )
-            $usedMemory = memory_get_usage();
         $tp = array( "Time" => $time,
                      "Description" => $description,
-                     "MemoryUsage" => $usedMemory );
+                     "MemoryUsage" => memory_get_usage() );
         $debug->TimePoints[] = $tp;
         $desc = "Timing Point: $description";
         foreach ( array( self::LEVEL_NOTICE, self::LEVEL_WARNING, self::LEVEL_ERROR, self::LEVEL_DEBUG, self::LEVEL_STRICT ) as $lvl )
@@ -1410,10 +1407,7 @@ class eZDebug
             $endTime = $this->ScriptStop;
         }
         $totalElapsed = $endTime - $startTime;
-        if ( function_exists( 'memory_get_peak_usage' ) )
-        {
-            $peakMemory = memory_get_peak_usage( true );
-        }
+        $peakMemory = memory_get_peak_usage( true );
 
         if ( $returnReport )
         {
@@ -1500,24 +1494,15 @@ class eZDebug
         {
             echo "<tr class='data'><td>Total runtime</td><td>" .
                 number_format( $totalElapsed, $this->TimingAccuracy ) . " sec</td></tr>";
+            echo "<tr class='data'><td>Peak memory usage</td><td>" .
+                number_format( $peakMemory / 1024, $this->TimingAccuracy ) . " KB</td></tr>";
         }
         else
         {
             echo "Total runtime: " .
                 number_format( $totalElapsed, $this->TimingAccuracy ) . " sec\n";
-        }
-        if ( isset( $peakMemory ) )
-        {
-            if ( $as_html )
-            {
-                echo "<tr class='data'><td>Peak memory usage</td><td>" .
-                    number_format( $peakMemory / 1024, $this->TimingAccuracy ) . " KB</td></tr>";
-            }
-            else
-            {
-                echo "Peak memory usage: " .
-                    number_format( $peakMemory / 1024, $this->TimingAccuracy ) . " KB\n";
-            }
+            echo "Peak memory usage: " .
+                number_format( $peakMemory / 1024, $this->TimingAccuracy ) . " KB\n";
         }
         $dbini = eZINI::instance();
         // note: we cannot use $db->databasename() because we get the same for mysql and mysqli

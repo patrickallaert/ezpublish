@@ -268,14 +268,6 @@ function exportSVNVersion( $version, $exportPath )
     return file_exists( $versionPath );
 }
 
-// Check for required md5_file function
-if ( !function_exists( 'md5_file' ) )
-{
-    $cli->error( "The function 'md5_file' does not exist in your PHP version" );
-    $cli->error( "You must upgrade PHP to a version (4.2.0) that has this function" );
-    $script->shutdown( 1 );
-}
-
 if ( !$options['no-verify-branches'] )
 {
     // Clean up the export path and/or recreate the directory path

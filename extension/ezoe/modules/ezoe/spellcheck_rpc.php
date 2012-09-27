@@ -84,20 +84,7 @@ else if (!$raw && isset($HTTP_RAW_POST_DATA))
 // Try stream
 if (!$raw)
 {
-    if (!function_exists('file_get_contents'))
-    {
-        $fp = fopen("php://input", "r");
-        if ($fp)
-        {
-            $raw = "";
-
-            while (!feof($fp))
-                $raw = fread($fp, 1024);
-
-            fclose($fp);
-        }
-    } else
-        $raw = "" . file_get_contents("php://input");
+    $raw = "" . file_get_contents("php://input");
 }
 
 // No input data

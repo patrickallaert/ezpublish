@@ -24,11 +24,7 @@ class eZTemplateDigestOperator
     */
     function eZTemplateDigestOperator()
     {
-        $this->Operators = array( 'crc32', 'md5', 'rot13' );
-        if ( function_exists( 'sha1' ) )
-        {
-            $this->Operators[] = 'sha1';
-        }
+        $this->Operators = array( 'crc32', 'md5', 'rot13', 'sha1' );
         foreach ( $this->Operators as $operator )
         {
             $name = $operator . 'Name';

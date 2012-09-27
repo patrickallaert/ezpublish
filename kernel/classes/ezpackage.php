@@ -501,31 +501,12 @@ class eZPackage
 
     static function md5sum( $file )
     {
-        if ( function_exists( 'md5_file' ) )
+        if ( is_file( $file ) )
         {
-            if ( is_file( $file ) )
-            {
-                return md5_file( $file );
-            }
-            else
-            {
-                eZDebug::writeError( "Could not open file $file for md5sum calculation" );
-            }
+            return md5_file( $file );
         }
-        else
-        {
-            $fd = @fopen( $file, 'rb' );
-            if ( $fd )
-            {
-                $data = '';
-                while ( !@feof( $fd ) )
-                {
-                    $data .= @fread( $fd, 4096 );
-                }
-                @fclose( $fd );
-                return md5( $data );
-            }
-        }
+
+        eZDebug::writeError( "Could not open file $file for md5sum calculation" );
         return false;
     }
 

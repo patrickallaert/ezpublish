@@ -485,10 +485,6 @@ class eZSession
         {
              return false;
         }
-        if ( !function_exists( 'session_regenerate_id' ) )
-        {
-            return false;
-        }
         if ( headers_sent() )
         {
             if ( PHP_SAPI !== 'cli' )

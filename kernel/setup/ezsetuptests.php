@@ -725,19 +725,8 @@ function eZSetupCheckExecutable( $type )
                 }
                 if ( $exclude )
                     continue;
-                if ( function_exists( "is_executable" ) )
+                if ( is_executable( $pathProgram ) )
                 {
-                    if ( is_executable( $pathProgram ) )
-                    {
-                        $result = true;
-                        $correctPath = $path;
-                        $correctProgram = $program;
-                        break;
-                    }
-                }
-                else
-                {
-                    // Windows system
                     $result = true;
                     $correctPath = $path;
                     $correctProgram = $program;
